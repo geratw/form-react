@@ -1,4 +1,4 @@
-form {
+/* form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -20,11 +20,5 @@ button {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
-}
+} */
 
-button[disabled] {
-  /* ваши стили для кнопки в состоянии disabled */
-  opacity: 0.6; /* пример стиля: уменьшение прозрачности */
-  cursor: not-allowed; /* пример стиля: изменение курсора */
-  /* добавьте любые другие стили, которые хотите применить */
-}
