@@ -1,1 +1,3 @@
-# from-react
+Стек технологий:
+*React Hook Form
+*Zod
