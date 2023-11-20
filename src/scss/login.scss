@@ -31,20 +31,21 @@ a {
   .login_box {
     position: relative;
     width: 450px;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(15px);
     border: 2px solid var(--primary-color);
     border-radius: 15px;
-    padding: 7.5em 2.5em 4em 2.5em;
+    padding: 6.5em 2.5em 4em 2.5em;
     color: var(--second-color);
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.3);
 
     p {
-      width: 20vw;
-      color: #df4343;
+      width: 40vw;
+      color: #f96364;
       margin-left: 10px;
-      padding: 10px;
+      padding: 10px 0 0 0;
       border-radius: 15px;
-      background-color: var(--primary-color);
+      font-style: normal;
+      font-weight: 700;
       font-size: 16px;
     }
 
@@ -101,15 +102,13 @@ a {
         height: 55px;
         font-size: 16px;
         background: transparent;
-        color: var(--second-color);
+        background-color: #e7f0fe;
+        color: var(--black-color);
         padding-inline: 20px 50px;
         border: 2px solid var(--primary-color);
         border-radius: 30px;
         outline: none;
       }
-    }
-    #user {
-      margin-bottom: 10px;
     }
 
     .label {
@@ -145,6 +144,7 @@ a {
       }
     }
     .input_submit {
+      margin-top: 30px;
       width: 100%;
       height: 50px;
       background: #dcdada;
@@ -157,6 +157,12 @@ a {
 
       &:hover {
         background: var(--second-color);
+      }
+      &:disabled {
+        cursor: not-allowed;
+        &:hover {
+          background: #dcdada;
+        }
       }
     }
   }
