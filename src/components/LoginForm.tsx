@@ -1,7 +1,7 @@
 import { FC } from "react";
 import "../scss/login.scss";
 import { useState } from "react";
-import { IShippingField } from "./app.interface";
+import { IsShippingField } from "./app.interface";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -12,7 +12,7 @@ const LoginForm: FC = () => {
   // для отслеживания состояния валидации для button
   const [showPassword, setShowPassword] = useState(false);
 
-  // блок валидаций с помощью Zod
+  // блок валидаций с помощью Zod и libphonenumber-js
   const emailValidation = z.string().email("Invalid value");
   const phoneValidation = z.string().refine((value) => {
     const phoneNumber = parsePhoneNumberFromString(value, "RU");
@@ -22,10 +22,14 @@ const LoginForm: FC = () => {
     .string()
     .regex(/^[a-zA-Z][a-zA-Z0-9_-]*$/, "Invalid value");
 
-  // объединяю проверки, можно добавить для пароля
+  const passwordValidation = z.string().refine((value) => value.trim() !== "", {
+    message: "Сan't be empty and a space",
+  });
+
+  // создаю схему, объединяю проверки
   const formSchema = z.object({
     email: z.union([emailValidation, phoneValidation, loginValidation]),
-    password: z.string(),
+    password: passwordValidation,
   });
 
   // для просмотра пароля
@@ -37,8 +41,10 @@ const LoginForm: FC = () => {
     setShowPassword(false);
   };
 
-  const onSubmit: SubmitHandler<IShippingField> = (data) => {
-    console.log(`login:${data.email}\nPassword:${data.password}`);
+  // функция, вызываемая при отправке формы
+  const onSubmit: SubmitHandler<IsShippingField> = (data) => {
+    const jsonData = JSON.stringify(data);
+    console.log(jsonData);
     reset();
   };
 
@@ -48,7 +54,7 @@ const LoginForm: FC = () => {
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm<IShippingField>({
+  } = useForm<IsShippingField>({
     mode: "all",
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,15 +75,13 @@ const LoginForm: FC = () => {
             type="text"
             id="user"
             className="input_field"
+            placeholder="Enter login, email or phone number"
           />
 
           <label htmlFor="user" className="label">
-            Login, mail or phone number
+            Login, email or phone number
           </label>
-          <div className="div_error_message">
-            <p className="error-message">{errors.email?.message || "\u00A0"}</p>
-          </div>
-
+          <p className="error-message">{errors.email?.message || "\u00A0"}</p>
           <i className="bx bx-user icon">
             <SvgIcon id="user" />
           </i>
@@ -88,6 +92,7 @@ const LoginForm: FC = () => {
             type={showPassword ? "text" : "password"}
             className="input_field"
             id="pass"
+            placeholder="Enter password"
           />
           <i className="bx bx-user icon">
             <button
@@ -100,12 +105,9 @@ const LoginForm: FC = () => {
               <SvgIcon id="password" />
             </button>
           </i>
-
-          <div className="div_error_message">
-            <p className="error-message">
-              {errors.password?.message || "\u00A0"}
-            </p>
-          </div>
+          <p className="error-message">
+            {errors.password?.message || "\u00A0"}
+          </p>
           <label htmlFor="pass" className="label">
             Password
           </label>
@@ -113,7 +115,7 @@ const LoginForm: FC = () => {
         </div>
         <div className="iput_box">
           <button disabled={!isValid} className="input_submit">
-            Sing in
+            Sign in
           </button>
         </div>
       </div>
