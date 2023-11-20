@@ -32,15 +32,6 @@ const LoginForm: FC = () => {
     password: passwordValidation,
   });
 
-  // для просмотра пароля
-  const handleMouseDown = () => {
-    setShowPassword(true);
-  };
-
-  const handleMouseUp = () => {
-    setShowPassword(false);
-  };
-
   // функция, вызываемая при отправке формы
   const onSubmit: SubmitHandler<IsShippingField> = (data) => {
     const jsonData = JSON.stringify(data);
@@ -48,19 +39,15 @@ const LoginForm: FC = () => {
     reset();
   };
 
-  //  инициализация хука формы с определенной схемой валидации
+  // инициализация хука формы с определенной схемой валидации
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
     reset,
   } = useForm<IsShippingField>({
-    mode: "all",
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    mode: "all", // для валидации при всех изменениях
+    resolver: zodResolver(formSchema), // для определения способа валидации формы
   });
 
   return (
@@ -97,9 +84,9 @@ const LoginForm: FC = () => {
           <i className="bx bx-user icon">
             <button
               type="button"
-              onMouseDown={handleMouseDown}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
+              onMouseDown={() => setShowPassword(true)}
+              onMouseUp={() => setShowPassword(false)}
+              onMouseLeave={() => setShowPassword(false)}
               className="svg-btn-show"
             >
               <SvgIcon id="password" />
