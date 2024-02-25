@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/form-react/static/css/main.ebce9a59.css",
+    "main.js": "/form-react/static/js/main.e09c97f3.js",
+    "static/media/bg.jpg": "/form-react/static/media/bg.27a1c82662264eefe32e.jpg",
+    "index.html": "/form-react/index.html",
+    "main.ebce9a59.css.map": "/form-react/static/css/main.ebce9a59.css.map",
+    "main.e09c97f3.js.map": "/form-react/static/js/main.e09c97f3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ebce9a59.css",
+    "static/js/main.e09c97f3.js"
+  ]
+}
